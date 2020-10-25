@@ -2,18 +2,25 @@ package com.example.a22_lesson
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        btnA.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, FragmentA()).commit()
-        }
-        btnB.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, FragmentB()).commit()
-        }
+
+        val bnv = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val navController = findNavController(R.id.fragment)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.firstFragment, R.id.secondFragment, R.id.thirdFragment))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        bnv.setupWithNavController(navController)
+
     }
 
 }
